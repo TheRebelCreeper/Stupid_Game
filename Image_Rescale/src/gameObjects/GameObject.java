@@ -1,9 +1,12 @@
 package gameObjects;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 
-import Main.ObjectImage;
+import Main.MyImage;
+import projectiles.Projectile;
+import projectiles.ProjectileCanShoot;
 
 
 @SuppressWarnings("serial")
@@ -11,19 +14,23 @@ public abstract class GameObject extends JLabel
 {
 	private int mySpeed;
 	private int lastX, lastY;
-	public Rectangle hitbox;
-	public ObjectImage img;
-	public boolean isColliding = false;
+	private String id;
+	public ArrayList<Projectile> projectiles;
+	private ArrayList<Integer> indexes;
+	public MyImage img;
+	public boolean canShoot = true;
+	protected ProjectileCanShoot projCanShoot;
 	
-	GameObject(ObjectImage icon, int x, int y, int w, int h, int speed)
+	GameObject(MyImage icon, int x, int y, int w, int h, int speed, String id)
 	{
+		projectiles = new ArrayList<Projectile>();
 		img = icon;
 		setIcon(img.getImage());
 		setBounds(x, y, w, h);
 		lastX = x; 
 		lastY = y;
-		hitbox = new Rectangle(x, y, w, h);
 		mySpeed = speed;
+		this.id = id;
 	}
 	
 	GameObject(int x, int y, int w, int h, int speed)
@@ -32,7 +39,6 @@ public abstract class GameObject extends JLabel
 		setBounds(x, y, w, h);
 		lastX = x; 
 		lastY = y;
-		hitbox = new Rectangle(x, y, w, h);
 		mySpeed = speed;
 	}
 	
@@ -63,6 +69,40 @@ public abstract class GameObject extends JLabel
 	public void moveBack()
 	{
 		setLocation(lastX, lastY);
-		hitbox.setLocation(lastX, lastY);
 	}
+	
+	public void movePlayer(int xSpeed, int ySpeed)
+	{
+		setLocation((getX() + xSpeed), getY() - ySpeed);
+	}
+	
+	protected String getId()
+	{
+		return id;
+	}
+	
+	protected void updateProjectiles()
+	{
+		indexes = new ArrayList<Integer>();
+		
+		for (Projectile n: projectiles)
+		{
+			n.update();
+		}
+		
+		for (int i = 0; i < projectiles.size(); i++)
+		{
+			if (projectiles.get(i).isExpired())
+			{
+				indexes.add(i);
+			}
+		}
+		
+		for (Integer n: indexes)
+		{
+			projectiles.get(n.intValue()).delete();
+			projectiles.remove(n.intValue());
+		}
+	}
+	
 }

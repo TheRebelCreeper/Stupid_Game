@@ -1,19 +1,18 @@
 package Main;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+
 import gameObjects.Collision;
 import gameObjects.Enemy;
 import gameObjects.GameObject;
 import gameObjects.Player;
 import gameObjects.Wall;
 
-import java.awt.Color;
-import java.util.ArrayList;
-
-import javax.swing.JFrame;
-
 
 public class GUI {
 
-	private JFrame frame;
+	public static JFrame frame;
 	public Player player;
 	public Enemy other;
 	public Wall wall1, wall2, wall3, wall4;
@@ -45,7 +44,7 @@ public class GUI {
 		{
 			n.update();
 		}
-		collisionHandler.handleCollision(gameObjects);
+		//collisionHandler.handleCollision(gameObjects);
 	}
 	
 	private void render()
@@ -59,33 +58,28 @@ public class GUI {
 	private void initialize() 
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 800, 600);
+		frame.setBounds(100, 100, 1280, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 		
-		player = new Player(Images.imgSpy, 10, 10, 62, 158, 3);
+		player = new Player(10, 10, 62, 158, 5, "Player");
 		gameObjects.add(player);
 		
-		other = new Enemy(Images.imgPyro, 100, 10, 75, 158, 3);
+		other = new Enemy(300, 23, 75, 145, 1, "Enemy", player);
 		gameObjects.add(other);
 		
-		wall1 = new Wall(0, 0, 790, 5, 0);
-		wall1.setBackground(Color.BLACK);
-		wall1.setOpaque(true);
+		wall1 = new Wall(0, 0, 1264, 5, 0);
+		wall1.setBounds(0, 0, 1264, 5);
 		gameObjects.add(wall1);
-		wall2 = new Wall(0, 0, 5, 560, 0);
-		wall2.setOpaque(true);
-		wall2.setBackground(Color.BLACK);
+		wall2 = new Wall(0, 0, 5, 682, 0);
+		wall2.setBounds(0, 0, 5, 682);
 		gameObjects.add(wall2);
-		wall3 = new Wall(0, 558, 790, 5, 0);
-		wall3.setOpaque(true);
-		wall3.setBackground(Color.BLACK);
+		wall3 = new Wall(0, 677, 1264, 5, 0);
+		wall3.setBounds(0, 677, 1264, 5);
 		gameObjects.add(wall3);
-		wall4 = new Wall(780, 0, 5, 560, 0);
-		wall4.setBackground(Color.BLACK);
-		wall4.setOpaque(true);
+		wall4 = new Wall(1260, 0, 5, 682, 0);
+		wall4.setBounds(1260, 0, 5, 682);
 		gameObjects.add(wall4);
-		
+		frame.getContentPane().setLayout(null);
 		
 		frame.getContentPane().add(other);
 		frame.getContentPane().add(player);

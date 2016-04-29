@@ -2,44 +2,59 @@ package gameObjects;
 
 import Main.Images;
 import Main.Keys;
-import Main.ObjectImage;
+import Main.MyImage;
+import projectiles.Fireball;
+import projectiles.ProjectileCanShoot;
 
 @SuppressWarnings("serial")
 public class Player extends GameObject
 {
 	private int myFirstSpeed;
-	public Player(ObjectImage icon, int x, int y, int w, int h, int speed) 
+	private static MyImage icon = Images.imgSpy;
+	
+	public Player(int x, int y, int w, int h, int speed, String id) 
 	{		
-		super(icon, x, y, w, h, speed);
+		super(icon, x, y, w, h, speed, id);
 		myFirstSpeed = speed;
 	}
 	
 	public void move()
 	{
-		if (Keys.dPressed)
+		setLastX(getX());
+		setLastY(getY());
+		if (Keys.dPressed && Keys.wPressed)
 		{
-			setLastX(getX());
-			setLocation(getX() + getSpeed(), getY());
-			hitbox.setLocation(getX() + getSpeed(), getY());
+			movePlayer(getSpeed(), getSpeed());
 		}
-		if (Keys.aPressed)
+		else if(Keys.dPressed && Keys.sPressed)
 		{
-			setLastX(getX());
-			setLocation(getX() - getSpeed(), getY());
-			hitbox.setLocation(getX() - getSpeed(), getY());
+			movePlayer(getSpeed(), -getSpeed());
 		}
-		if (Keys.wPressed)
+		else if (Keys.aPressed && Keys.wPressed)
 		{
-			setLastY(getY());
-			setLocation(getX(), getY() - getSpeed());
-			hitbox.setLocation(getX(), getY() - getSpeed());
+			movePlayer(-getSpeed(), getSpeed());
 		}
-		if (Keys.sPressed)
+		else if(Keys.aPressed && Keys.sPressed)
 		{
-			setLastY(getY());
-			setLocation(getX(), getY() + getSpeed());
-			hitbox.setLocation(getX(), getY() + getSpeed());
+			movePlayer(-getSpeed(), -getSpeed());
 		}
+		else if (Keys.dPressed)
+		{
+			movePlayer(getSpeed(), 0);
+		}
+		else if (Keys.aPressed)
+		{
+			movePlayer(-getSpeed(), 0);
+		}
+		else if (Keys.wPressed)
+		{
+			movePlayer(0, getSpeed());
+		}
+		else if (Keys.sPressed)
+		{
+			movePlayer(0, -getSpeed());
+		}
+		
 		if (Keys.shiftPressed)
 		{
 			setBounds(getX(), getY(), 125, 158);
@@ -49,17 +64,29 @@ public class Player extends GameObject
 		if (Keys.shiftReleased)
 		{
 			setBounds(getX(), getY(), 62, 158);
-			setIcon(img.getImage());
+			setIcon(icon.getImage());
 			setSpeed(myFirstSpeed);
 			Keys.shiftReleased = false;
+		}
+		
+		if (Keys.spacePressed)
+		{
+			projCanShoot = new ProjectileCanShoot(500, this);
+			if (canShoot)
+			{
+				projectiles.add(new Fireball(this));
+				canShoot = false;
+				projCanShoot.execute();
+			}
 		}
 	}
 
 	@Override
 	public void update() 
 	{
+		updateProjectiles();		
 		move();
-		
+		Collision.handleCollision(this);
 	}
 
 	@Override

@@ -9,6 +9,7 @@ public class Keys
 	public static boolean downPressed = false;
 	public static boolean shiftPressed = false;
 	public static boolean shiftReleased = false;
+	public static boolean spacePressed = false;
 	
 	public static boolean wPressed = false;
 	public static boolean aPressed = false;

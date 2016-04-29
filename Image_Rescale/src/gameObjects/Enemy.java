@@ -1,42 +1,45 @@
 package gameObjects;
 
-import Main.Keys;
-import Main.ObjectImage;
+import javax.swing.JOptionPane;
+
+import Main.Images;
+import Main.MyImage;
 
 @SuppressWarnings("serial")
+
 public class Enemy extends GameObject
 {
-
-	public Enemy(ObjectImage icon, int x, int y, int w, int h, int speed) 
+	
+	private GameObject target;
+	private static MyImage icon = Images.imgPyro;
+	
+	public Enemy(int x, int y, int w, int h, int speed, String id, GameObject targ) 
 	{
-		super(icon, x, y, w, h, speed);
+		super(icon, x, y, w, h, speed, id);
+		target = targ;
 	}
 
 	public void move() 
 	{
-		if (Keys.rightPressed)
+		setLastX(getX());
+		setLastY(getY());
+		
+		if (getX() < target.getX())
 		{
-			setLastX(getX());
-			setLocation(getX() + getSpeed(), getY());
-			hitbox.setLocation(getX() + getSpeed(), getY());
+			movePlayer(getSpeed(), 0);
 		}
-		if (Keys.leftPressed)
+		else
 		{
-			setLastX(getX());
-			setLocation(getX() - getSpeed(), getY());
-			hitbox.setLocation(getX() - getSpeed(), getY());
+			movePlayer(-getSpeed(), 0);
 		}
-		if (Keys.upPressed)
+		
+		if (getY() < target.getY())
 		{
-			setLastY(getY());
-			setLocation(getX(), getY() - getSpeed());
-			hitbox.setLocation(getX(), getY() - getSpeed());
+			movePlayer(0, -getSpeed());
 		}
-		if (Keys.downPressed)
+		else
 		{
-			setLastY(getY());
-			setLocation(getX(), getY() + getSpeed());
-			hitbox.setLocation(getX(), getY() + getSpeed());
+			movePlayer(0, getSpeed());
 		}
 	}
 
@@ -44,6 +47,11 @@ public class Enemy extends GameObject
 	public void update() {
 		// TODO Auto-generated method stub
 		move();
+		if (Collision.handleCollision(this).equals("Player"))
+		{
+			JOptionPane.showMessageDialog(null, "Game Over", "", JOptionPane.DEFAULT_OPTION);
+			System.exit(1);
+		}
 	}
 
 	@Override
@@ -51,5 +59,4 @@ public class Enemy extends GameObject
 		// TODO Auto-generated method stub
 		
 	}
-	
 }

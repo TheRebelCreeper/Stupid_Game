@@ -41,7 +41,10 @@ public class KeyboardListener implements KeyListener
 		{
 			Keys.sPressed = true;
 		}
-		
+		else if (key == KeyEvent.VK_SPACE)
+		{
+			Keys.spacePressed = true;
+		}
 		
 		if (e.isShiftDown())
 		{
@@ -84,6 +87,10 @@ public class KeyboardListener implements KeyListener
 		else if (key == KeyEvent.VK_S)
 		{
 			Keys.sPressed = false;
+		}
+		else if (key == KeyEvent.VK_SPACE)
+		{
+			Keys.spacePressed = false;
 		}
 		
 		if (!e.isShiftDown())

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Collision 
 {
-	private ArrayList<GameObject> myList;
+	private static ArrayList<GameObject> myList;
 	public Collision(ArrayList<GameObject> list)
 	{
 		myList = new ArrayList<GameObject>();
@@ -22,7 +22,7 @@ public class Collision
 			{
 				if (i != j)
 				{
-					if (list.get(i).hitbox.intersects(list.get(j).hitbox))
+					if (list.get(i).getBounds().intersects(list.get(j).getBounds()))
 					{
 						list.get(i).moveBack();
 					}
@@ -31,32 +31,19 @@ public class Collision
 		}
 	}
 	
-	public void handleCollision(GameObject obj)
+	public static String handleCollision(GameObject obj)
 	{
 		for (int i = 0; i < myList.size(); i++)
 		{
-			if (!myList.get(i).equals(obj))
+			if (!obj.equals(myList.get(i)))
 			{
-				if (obj.hitbox.intersects(myList.get(i).hitbox))
+				if (obj.getBounds().intersects(myList.get(i).getBounds()))
 				{
 					obj.moveBack();
+					return myList.get(i).getId();
 				}
 			}
 		}
-	}
-	
-	public boolean checkCollision(GameObject obj)
-	{
-		for (int i = 0; i < myList.size(); i++)
-		{
-			if (!myList.get(i).equals(obj))
-			{
-				if (obj.hitbox.intersects(myList.get(i).hitbox))
-				{
-					return true;
-				}
-			}
-		}
-		return false;
+		return "";
 	}
 }
