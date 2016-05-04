@@ -2,6 +2,8 @@ package gameObjects;
 
 import java.util.ArrayList;
 
+import projectiles.Projectile;
+
 public class Collision 
 {
 	private static ArrayList<GameObject> myList;
@@ -40,6 +42,21 @@ public class Collision
 				if (obj.getBounds().intersects(myList.get(i).getBounds()))
 				{
 					obj.moveBack();
+					return myList.get(i).getId();
+				}
+			}
+		}
+		return "";
+	}
+	
+	public static String handleCollision(Projectile proj)
+	{
+		for (int i = 0; i < myList.size(); i++)
+		{
+			if (!proj.equals(myList.get(i)))
+			{
+				if (proj.getBounds().intersects(myList.get(i).getBounds()))
+				{
 					return myList.get(i).getId();
 				}
 			}

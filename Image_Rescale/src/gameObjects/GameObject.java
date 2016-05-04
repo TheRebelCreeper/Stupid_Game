@@ -33,13 +33,14 @@ public abstract class GameObject extends JLabel
 		this.id = id;
 	}
 	
-	GameObject(int x, int y, int w, int h, int speed)
+	GameObject(int x, int y, int w, int h, int speed, String id)
 	{
 		setIcon(null);
 		setBounds(x, y, w, h);
 		lastX = x; 
 		lastY = y;
 		mySpeed = speed;
+		this.id = id;
 	}
 	
 	public abstract void update();
@@ -71,9 +72,16 @@ public abstract class GameObject extends JLabel
 		setLocation(lastX, lastY);
 	}
 	
-	public void movePlayer(int xSpeed, int ySpeed)
+	public void movePlayer(int speed, double angle)
 	{
-		setLocation((getX() + xSpeed), getY() - ySpeed);
+		int speedX = (int)(Math.abs(speed) * Math.cos(angle));
+		int speedY = (int)(Math.abs(speed) * Math.sin(angle));
+		setLocation((getX() + speedX), getY() + speedY);
+	}
+	
+	public void movePlayer(int speedX, int speedY)
+	{
+		setLocation((getX() + speedX), getY() + speedY);
 	}
 	
 	protected String getId()

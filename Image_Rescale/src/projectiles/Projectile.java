@@ -15,8 +15,11 @@ public abstract class Projectile extends JLabel
 	private ProjectileExpire expire;
 	private GameObject src;
 	private MyImage img;
+	protected int speed;
+	protected double angle;
+	protected GameObject target;
 	
-	public Projectile(GameObject source, int lifeTime, MyImage img)
+	public Projectile(GameObject source, int lifeTime, MyImage img, int speed)
 	{
 		expire = new ProjectileExpire(lifeTime);
 		expire.execute();
@@ -24,7 +27,7 @@ public abstract class Projectile extends JLabel
 		setBounds(source.getX(), source.getY(), img.getImgW(), img.getImgH());
 		setIcon(img.getImage());
 		GUI.frame.getContentPane().add(this);
-		
+		this.speed = speed;
 	}
 	
 	public abstract void update();
@@ -46,5 +49,17 @@ public abstract class Projectile extends JLabel
 		{
 			return false;
 		}
+	}
+	
+	public void moveProjectile(int speed, double angle)
+	{
+		int speedX = (int)(Math.abs(speed) * Math.cos(angle));
+		int speedY = (int)(Math.abs(speed) * Math.sin(angle));
+		setLocation(getX() + speedX, getY() + speedY);
+	}
+	
+	protected int getSpeed()
+	{
+		return speed;
 	}
 }

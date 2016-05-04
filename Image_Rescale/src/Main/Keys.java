@@ -15,4 +15,5 @@ public class Keys
 	public static boolean aPressed = false;
 	public static boolean sPressed = false;
 	public static boolean dPressed = false;
+	public static boolean isAlive = true;
 }

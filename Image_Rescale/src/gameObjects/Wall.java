@@ -7,7 +7,7 @@ public class Wall extends GameObject
 
 	public Wall(int x, int y, int w, int h, int speed) 
 	{
-		super(x, y, w, h, speed);
+		super(x, y, w, h, speed, "wall");
 	}
 
 	@Override

@@ -1,7 +1,9 @@
 package Main;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import gameObjects.Collision;
 import gameObjects.Enemy;
@@ -18,24 +20,29 @@ public class GUI {
 	public Wall wall1, wall2, wall3, wall4;
 	private ArrayList<GameObject> gameObjects;
 	private Collision collisionHandler;
+	private double timeAlive;
+	private boolean playAgain = true;
 
 	/**
 	 * Create the application.
 	 */
 	public GUI() 
 	{
+		resetKeys();
 		gameObjects = new ArrayList<GameObject>();
 		initialize();
 		frame.addKeyListener(new KeyboardListener());
-		collisionHandler = new Collision(gameObjects);
-		
-		while(true)
+		collisionHandler = new Collision(gameObjects);	
+		while(Keys.isAlive)
 		{
 			update();
 			render();
-			try {Thread.sleep(8);} 
+			try {Thread.sleep(8); timeAlive += 0.008;} 
 			catch (InterruptedException e) {e.printStackTrace();}
 		}
+		String strTimeAlive = new String().format("%.2f", timeAlive);
+		JOptionPane.showMessageDialog(null, "Game Over.\nYou lived for " + strTimeAlive + " seconds", "", JOptionPane.DEFAULT_OPTION);
+		frame.dispose();
 	}
 
 	private void update()
@@ -44,12 +51,14 @@ public class GUI {
 		{
 			n.update();
 		}
+		render();
 		//collisionHandler.handleCollision(gameObjects);
 	}
 	
 	private void render()
 	{
-		
+		String strTimeAlive = new String().format("%.2f", timeAlive);
+		frame.setTitle(strTimeAlive);
 	}
 	
 	/**
@@ -64,7 +73,7 @@ public class GUI {
 		player = new Player(10, 10, 62, 158, 5, "Player");
 		gameObjects.add(player);
 		
-		other = new Enemy(300, 23, 75, 145, 1, "Enemy", player);
+		other = new Enemy(700, 23, 75, 145, 2, "Enemy", player);
 		gameObjects.add(other);
 		
 		wall1 = new Wall(0, 0, 1264, 5, 0);
@@ -88,5 +97,22 @@ public class GUI {
 		frame.getContentPane().add(wall3);
 		frame.getContentPane().add(wall4);
 		frame.setVisible(true);
+	}
+	
+	private void resetKeys()
+	{
+		Keys.rightPressed = false;
+		Keys.leftPressed = false;
+		Keys.upPressed = false;
+		Keys.downPressed = false;
+		Keys.shiftPressed = false;
+		Keys.shiftReleased = false;
+		Keys.spacePressed = false;
+		
+		Keys.wPressed = false;
+		Keys.aPressed = false;
+		Keys.sPressed = false;
+		Keys.dPressed = false;
+		Keys.isAlive = true;
 	}
 }

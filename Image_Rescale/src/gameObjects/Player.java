@@ -24,19 +24,19 @@ public class Player extends GameObject
 		setLastY(getY());
 		if (Keys.dPressed && Keys.wPressed)
 		{
-			movePlayer(getSpeed(), getSpeed());
+			movePlayer(getSpeed(), 7 * Math.PI / 4.0);
 		}
 		else if(Keys.dPressed && Keys.sPressed)
 		{
-			movePlayer(getSpeed(), -getSpeed());
+			movePlayer(getSpeed(), Math.PI / 4.0);
 		}
 		else if (Keys.aPressed && Keys.wPressed)
 		{
-			movePlayer(-getSpeed(), getSpeed());
+			movePlayer(getSpeed(), 5 * Math.PI / 4.0);
 		}
 		else if(Keys.aPressed && Keys.sPressed)
 		{
-			movePlayer(-getSpeed(), -getSpeed());
+			movePlayer(getSpeed(), 3 * Math.PI / 4.0);
 		}
 		else if (Keys.dPressed)
 		{
@@ -44,22 +44,22 @@ public class Player extends GameObject
 		}
 		else if (Keys.aPressed)
 		{
-			movePlayer(-getSpeed(), 0);
+			movePlayer(getSpeed(), Math.PI);
 		}
 		else if (Keys.wPressed)
 		{
-			movePlayer(0, getSpeed());
+			movePlayer(getSpeed(), 3 * Math.PI / 2.0);
 		}
 		else if (Keys.sPressed)
 		{
-			movePlayer(0, -getSpeed());
+			movePlayer(getSpeed(), Math.PI / 2.0);
 		}
 		
 		if (Keys.shiftPressed)
 		{
 			setBounds(getX(), getY(), 125, 158);
 			setIcon(Images.imgSpycrab.getImage());
-			setSpeed(1);
+			setSpeed(2);
 		}
 		if (Keys.shiftReleased)
 		{
@@ -68,23 +68,11 @@ public class Player extends GameObject
 			setSpeed(myFirstSpeed);
 			Keys.shiftReleased = false;
 		}
-		
-		if (Keys.spacePressed)
-		{
-			projCanShoot = new ProjectileCanShoot(500, this);
-			if (canShoot)
-			{
-				projectiles.add(new Fireball(this));
-				canShoot = false;
-				projCanShoot.execute();
-			}
-		}
 	}
 
 	@Override
 	public void update() 
-	{
-		updateProjectiles();		
+	{	
 		move();
 		Collision.handleCollision(this);
 	}
