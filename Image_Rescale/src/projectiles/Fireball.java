@@ -25,9 +25,9 @@ public class Fireball extends Projectile{
 	{
 		move();
 		if (Collision.handleCollision(this).equals("Player"))
-		{
-			delete();
+		{	
 			Keys.isAlive = false;
+			delete();
 		}
 	}
 	

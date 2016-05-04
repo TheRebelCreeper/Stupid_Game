@@ -66,6 +66,7 @@ public class Player extends GameObject
 			setBounds(getX(), getY(), 62, 158);
 			setIcon(icon.getImage());
 			setSpeed(myFirstSpeed);
+			Keys.tickRate = 8;
 			Keys.shiftReleased = false;
 		}
 	}

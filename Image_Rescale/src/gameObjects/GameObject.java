@@ -79,7 +79,7 @@ public abstract class GameObject extends JLabel
 		setLocation((getX() + speedX), getY() + speedY);
 	}
 	
-	public void movePlayer(int speedX, int speedY)
+	public void movePlayer(int speedX, int speedY, int i)
 	{
 		setLocation((getX() + speedX), getY() + speedY);
 	}

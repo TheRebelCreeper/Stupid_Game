@@ -1,12 +1,10 @@
 package gameObjects;
 
-import javax.swing.JOptionPane;
-
-import projectiles.Fireball;
-import projectiles.ProjectileCanShoot;
 import Main.Images;
 import Main.Keys;
 import Main.MyImage;
+import projectiles.Fireball;
+import projectiles.ProjectileCanShoot;
 
 @SuppressWarnings("serial")
 
@@ -16,28 +14,52 @@ public class Enemy extends GameObject
 	private GameObject target;
 	private static MyImage icon = Images.imgPyro;
 	private double angle;
+	private boolean hardMode;
 	
-	public Enemy(int x, int y, int w, int h, int speed, String id, GameObject targ) 
+	public Enemy(int x, int y, int w, int h, int speed, String id, GameObject targ, boolean hard) 
 	{
 		super(icon, x, y, w, h, speed, id);
 		target = targ;
 		calcDirection();
+		hardMode = hard;
 	}
 
 	public void move() 
 	{
 		setLastX(getX());
 		setLastY(getY());
+		if (hardMode)
+		{
+		if (target.getX() > getX())
+		{
+			movePlayer(getSpeed(), 0, 0);
+		}
+		else if(target.getX() < getX())
+		{
+			movePlayer(-getSpeed(), 0, 0);
+		}
+		
+		if (target.getY() > getY())
+		{
+			movePlayer(0, getSpeed(), 0);
+		}
+		else if(target.getY() < getY() && getY() > 10)
+		{
+			movePlayer(0, -getSpeed(), 0);
+		}
+		}
+		else
 		movePlayer(getSpeed(), angle);
 	}
 
 	@Override
-	public void update() {
+	public void update() 
+	{
 		// TODO Auto-generated method stub
 		calcDirection();
 		move();
 		
-		projCanShoot = new ProjectileCanShoot(100, this);
+		projCanShoot = new ProjectileCanShoot(150, this);
 		if (canShoot)
 		{
 			projectiles.add(new Fireball(this, target));

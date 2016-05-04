@@ -37,7 +37,7 @@ public class GUI {
 		{
 			update();
 			render();
-			try {Thread.sleep(8); timeAlive += 0.008;} 
+			try {Thread.sleep(Keys.tickRate); timeAlive += Keys.tickRate / 1000.0;} 
 			catch (InterruptedException e) {e.printStackTrace();}
 		}
 		String strTimeAlive = new String().format("%.2f", timeAlive);
@@ -70,10 +70,10 @@ public class GUI {
 		frame.setBounds(100, 100, 1280, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		player = new Player(10, 10, 62, 158, 5, "Player");
+		player = new Player(10, 250, 62, 158, 6, "Player");
 		gameObjects.add(player);
 		
-		other = new Enemy(700, 23, 75, 145, 2, "Enemy", player);
+		other = new Enemy(1000, 250, 75, 145, 3, "Enemy", player, true);
 		gameObjects.add(other);
 		
 		wall1 = new Wall(0, 0, 1264, 5, 0);

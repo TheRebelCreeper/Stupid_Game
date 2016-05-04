@@ -1,14 +1,10 @@
 package projectiles;
 
-import gameObjects.GameObject;
-
-import java.awt.Graphics;
-
 import javax.swing.JLabel;
 
 import Main.GUI;
-import Main.Images;
 import Main.MyImage;
+import gameObjects.GameObject;
 
 public abstract class Projectile extends JLabel
 {
