@@ -3,8 +3,6 @@ package gameObjects;
 import Main.Images;
 import Main.Keys;
 import Main.MyImage;
-import projectiles.Fireball;
-import projectiles.ProjectileCanShoot;
 
 @SuppressWarnings("serial")
 public class Player extends GameObject
@@ -66,7 +64,6 @@ public class Player extends GameObject
 			setBounds(getX(), getY(), 62, 158);
 			setIcon(icon.getImage());
 			setSpeed(myFirstSpeed);
-			Keys.tickRate = 8;
 			Keys.shiftReleased = false;
 		}
 	}

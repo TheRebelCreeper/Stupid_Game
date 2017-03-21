@@ -1,5 +1,4 @@
 package gameObjects;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -95,12 +94,13 @@ public abstract class GameObject extends JLabel
 		
 		for (Projectile n: projectiles)
 		{
-			n.update();
+			if (n != null)
+				n.update();
 		}
 		
 		for (int i = 0; i < projectiles.size(); i++)
 		{
-			if (projectiles.get(i).isExpired())
+			if (projectiles.get(i) != null && projectiles.get(i).isExpired())
 			{
 				indexes.add(i);
 			}

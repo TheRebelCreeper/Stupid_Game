@@ -1,13 +1,12 @@
 package projectiles;
 
-import javax.swing.JOptionPane;
-
 import Main.Images;
 import Main.Keys;
 import Main.MyImage;
 import gameObjects.Collision;
 import gameObjects.GameObject;
 
+@SuppressWarnings("serial")
 public class Fireball extends Projectile{
 
 	private static final int lifeTime = 700;
@@ -16,18 +15,18 @@ public class Fireball extends Projectile{
 	
 	public Fireball(GameObject source, GameObject targ) 
 	{
-		super(source, lifeTime, img, 4);
+		super(source, lifeTime, img, 8);
 		target = targ;
 		calcDirection();
 	}
 	
 	public void update()
 	{
+		calcDirection();
 		move();
 		if (Collision.handleCollision(this).equals("Player"))
 		{	
 			Keys.isAlive = false;
-			delete();
 		}
 	}
 	

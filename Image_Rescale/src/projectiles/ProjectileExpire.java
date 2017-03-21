@@ -1,8 +1,6 @@
 package projectiles;
 
-import javax.swing.SwingWorker;
-
-public class ProjectileExpire extends SwingWorker<Object, Object>
+public class ProjectileExpire extends Thread
 {
 	int duration;
 	public ProjectileExpire(int duration)
@@ -10,14 +8,17 @@ public class ProjectileExpire extends SwingWorker<Object, Object>
 		this.duration = duration;
 	}
 	
-	@Override
-	protected Object doInBackground() throws Exception 
+	public void run()
 	{
 		for (int i = 1; i <= duration; i++)
 		{
-			Thread.sleep(1);
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		return null;
 	}
 
 }

@@ -17,5 +17,5 @@ public class Keys
 	public static boolean dPressed = false;
 	public static boolean isAlive = true;
 	
-	public static int tickRate = 8;
+	public static final int tickRate = 64;
 }

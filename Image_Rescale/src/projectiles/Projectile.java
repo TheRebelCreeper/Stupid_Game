@@ -6,6 +6,7 @@ import Main.GUI;
 import Main.MyImage;
 import gameObjects.GameObject;
 
+@SuppressWarnings("serial")
 public abstract class Projectile extends JLabel
 {
 	private ProjectileExpire expire;
@@ -18,7 +19,7 @@ public abstract class Projectile extends JLabel
 	public Projectile(GameObject source, int lifeTime, MyImage img, int speed)
 	{
 		expire = new ProjectileExpire(lifeTime);
-		expire.execute();
+		expire.start();
 		src = source;
 		setBounds(source.getX(), source.getY(), img.getImgW(), img.getImgH());
 		setIcon(img.getImage());
@@ -37,7 +38,7 @@ public abstract class Projectile extends JLabel
 	
 	public boolean isExpired()
 	{
-		if (expire.isDone())
+		if (!expire.isAlive())
 		{
 			return true;
 		}
@@ -47,7 +48,7 @@ public abstract class Projectile extends JLabel
 		}
 	}
 	
-	public void moveProjectile(int speed, double angle)
+	protected void moveProjectile(int speed, double angle)
 	{
 		int speedX = (int)(Math.abs(speed) * Math.cos(angle));
 		int speedY = (int)(Math.abs(speed) * Math.sin(angle));

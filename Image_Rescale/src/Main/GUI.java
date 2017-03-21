@@ -1,6 +1,5 @@
 package Main;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,8 +18,10 @@ public class GUI {
 	public Enemy other;
 	public Wall wall1, wall2, wall3, wall4;
 	private ArrayList<GameObject> gameObjects;
+	@SuppressWarnings("unused")
 	private Collision collisionHandler;
 	private double timeAlive;
+	@SuppressWarnings("unused")
 	private boolean playAgain = true;
 
 	/**
@@ -37,10 +38,18 @@ public class GUI {
 		{
 			update();
 			render();
-			try {Thread.sleep(Keys.tickRate); timeAlive += Keys.tickRate / 1000.0;} 
-			catch (InterruptedException e) {e.printStackTrace();}
+			try 
+			{
+				Thread.sleep(1000/Keys.tickRate); 
+				timeAlive += (1.0 / Keys.tickRate);
+			} 
+			catch (InterruptedException e) 
+			{
+				
+			}
 		}
-		String strTimeAlive = new String().format("%.2f", timeAlive);
+		new String();
+		String strTimeAlive = String.format("%.2f", timeAlive);
 		JOptionPane.showMessageDialog(null, "Game Over.\nYou lived for " + strTimeAlive + " seconds", "", JOptionPane.DEFAULT_OPTION);
 		frame.dispose();
 	}
@@ -51,12 +60,12 @@ public class GUI {
 		{
 			n.update();
 		}
-		render();
 		//collisionHandler.handleCollision(gameObjects);
 	}
 	
 	private void render()
 	{
+		@SuppressWarnings("static-access")
 		String strTimeAlive = new String().format("%.2f", timeAlive);
 		frame.setTitle(strTimeAlive);
 	}
@@ -70,10 +79,10 @@ public class GUI {
 		frame.setBounds(100, 100, 1280, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		player = new Player(10, 250, 62, 158, 6, "Player");
+		player = new Player(10, 250, 62, 158, 10, "Player");
 		gameObjects.add(player);
 		
-		other = new Enemy(1000, 250, 75, 145, 3, "Enemy", player, true);
+		other = new Enemy(1000, 250, 75, 145, 6, "Enemy", player, false);
 		gameObjects.add(other);
 		
 		wall1 = new Wall(0, 0, 1264, 5, 0);

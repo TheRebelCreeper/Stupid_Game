@@ -1,26 +1,28 @@
 package projectiles;
 
-import javax.swing.SwingWorker;
-
 import gameObjects.GameObject;
 
-public class ProjectileCanShoot extends SwingWorker<Object, Object>
+public class ProjectileCanShoot extends Thread
 {
 	private int delay;
-	private GameObject target;
+	private GameObject parent;
 	
-	public ProjectileCanShoot(int delay, GameObject target)
+	public ProjectileCanShoot(int delay, GameObject parent)
 	{
 		this.delay = delay;
-		this.target = target;
+		this.parent = parent;
 	}
 	
 	@Override
-	protected Object doInBackground() throws Exception 
+	public void run()
 	{
-		Thread.sleep(delay);
-		target.canShoot = true;
-		return null;
+		try {
+			Thread.sleep(delay);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		parent.canShoot = true;
 	}
 
 }

@@ -30,26 +30,26 @@ public class Enemy extends GameObject
 		setLastY(getY());
 		if (hardMode)
 		{
-		if (target.getX() > getX())
-		{
-			movePlayer(getSpeed(), 0, 0);
-		}
-		else if(target.getX() < getX())
-		{
-			movePlayer(-getSpeed(), 0, 0);
-		}
-		
-		if (target.getY() > getY())
-		{
-			movePlayer(0, getSpeed(), 0);
-		}
-		else if(target.getY() < getY() && getY() > 10)
-		{
-			movePlayer(0, -getSpeed(), 0);
-		}
+			if (target.getX() > getX())
+			{
+				movePlayer(getSpeed(), 0, 0);
+			}
+			else if(target.getX() < getX())
+			{
+				movePlayer(-getSpeed(), 0, 0);
+			}
+			
+			if (target.getY() > getY())
+			{
+				movePlayer(0, getSpeed(), 0);
+			}
+			else if(target.getY() < getY() && getY() > 10)
+			{
+				movePlayer(0, -getSpeed(), 0);
+			}
 		}
 		else
-		movePlayer(getSpeed(), angle);
+			movePlayer(getSpeed(), angle);
 	}
 
 	@Override
@@ -59,12 +59,12 @@ public class Enemy extends GameObject
 		calcDirection();
 		move();
 		
-		projCanShoot = new ProjectileCanShoot(150, this);
+		projCanShoot = new ProjectileCanShoot(200, this);
 		if (canShoot)
 		{
 			projectiles.add(new Fireball(this, target));
 			canShoot = false;
-			projCanShoot.execute();
+			projCanShoot.start();
 		}
 		
 		if (Collision.handleCollision(this).equals("Player"))
