@@ -4,45 +4,46 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class MyImage 
+public class MyImage
 {
-	private ImageIcon img;
-	private int imgW;
-	private int imgH;
-	
-	public MyImage(ImageIcon icon, int w, int h)
-	{
-		setImgW(w);
-		setImgH(h);
-		img = resize(icon, w, h);
-	}
-	
-	public ImageIcon getImage()
-	{
-		return img;
-	}
-	
-	public ImageIcon resize(ImageIcon img, int w, int h)
-	{
-		return new ImageIcon(img.getImage().getScaledInstance(w, h, Image.SCALE_DEFAULT));
-	}
+    private ImageIcon img;
+    private int imgW;
+    private int imgH;
 
-	public int getImgH() {
-		return imgH;
-	}
+    public MyImage(ImageIcon icon, int w, int h)
+    {
+        setImgW(w);
+        setImgH(h);
+        img = resize(icon, w, h);
+    }
 
-	public void setImgH(int h) 
-	{
-		imgH = h;
-	}
+    public ImageIcon getImage()
+    {
+        return img;
+    }
 
-	public int getImgW() 
-	{
-		return imgW;
-	}
+    public ImageIcon resize(ImageIcon img, int w, int h)
+    {
+        return new ImageIcon(img.getImage().getScaledInstance(w, h, Image.SCALE_DEFAULT));
+    }
 
-	public void setImgW(int w) 
-	{
-		imgW = w;
-	}
+    public int getImgH()
+    {
+        return imgH;
+    }
+
+    public void setImgH(int h)
+    {
+        imgH = h;
+    }
+
+    public int getImgW()
+    {
+        return imgW;
+    }
+
+    public void setImgW(int w)
+    {
+        imgW = w;
+    }
 }

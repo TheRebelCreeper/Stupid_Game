@@ -5,20 +5,22 @@ package gameObjects;
 public class Wall extends GameObject
 {
 
-	public Wall(int x, int y, int w, int h, int speed) 
-	{
-		super(x, y, w, h, speed, "wall");
-	}
+    public Wall(int x, int y, int w, int h, int speed)
+    {
+        super(x, y, w, h, speed, "wall");
+    }
 
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void update()
+    {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void draw() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
+
+    @Override
+    public void draw()
+    {
+        // TODO Auto-generated method stub
+
+    }
 }
